@@ -2,7 +2,7 @@
  * SORTING NODES WITHIN A CONTAINER
  * Please, make sure to read the following files in the exercises-info folder before you start
  * * 01 SelectNodes.md
-*/
+ */
 
 /**
  * @task
@@ -12,9 +12,7 @@
  */
 
 // Your code goes here...
-
-
-
+const allItems = document.querySelectorAll(".item");
 /**
  * @task
  * Select the main container by the id of "main"
@@ -23,8 +21,7 @@
  * */
 
 // Your code goes here
-
-
+const main = document.getElementById("main");
 
 /**
  * @task
@@ -34,8 +31,7 @@
  */
 
 // Your code goes here
-
-
+const favs = document.getElementById("favs");
 
 /**
  * @task
@@ -47,8 +43,15 @@
  */
 
 // Your code goes here
+function updateCollections(id, direction) {
+  const item = document.getElementById(id);
 
-
+  if (direction === "toFav") {
+    favs.append(item);
+  } else {
+    main.append(item);
+  }
+}
 
 /**
  * @task
@@ -63,7 +66,21 @@
  * * If the correct item's location is the parent of id 'favs' -> the direction is 'toMain'
  * * Make the updateCollections function call, assign the item Id and the direction defined above
  */
-
 // Your code goes here...
-
-
+allItems.forEach((element) =>
+  element.addEventListener("click", function () {
+    let parentID = this.parentElement.id;
+    let elementId = this.id;
+    let icon = element.querySelector("i");
+    if (parentID === "main") {
+      direction = "toFav";
+      icon.classList.remove("fa-heart-circle-plus");
+      icon.classList.add("fa-heart-crack");
+    } else {
+      direction = "toMain";
+      icon.classList.remove("fa-heart-crack");
+      icon.classList.add("fa-heart-circle-plus");
+    }
+    updateCollections(elementId, direction);
+  })
+);
